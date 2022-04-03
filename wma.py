@@ -6,30 +6,22 @@ from heapq import heappush, heappop
 import numpy as np
 import pandas as pd 
 def printTransactions(m, k, d, name, owned, prices):
+    #In thist function the difference between short time and long term average is computed  
     def info(price):
         df_data=pd.DataFrame(price)
         short=df_data.ewm(span=3, adjust=False).mean()
         long=df_data.ewm(span=5, adjust=False).mean()
-        # sa_long=sum(price[0:4])/4
-        # Ema_long=sa_long*2/6+price[-1]*(1-2/6)
-        # sa_short=sum(price[2:4])/2
-        # # print(price[2:4])
-        # Ema_short=sa_short*1/3+price[-1]*(2/3)
-        # print(Ema_short-Ema_long)
-        # print(short[0][4])
-        # print(long[0][4])
         return short[0][4]-long[0][4]
-    # infos = map(info, prices)
     res = []
-    
+
     drop = []
     
     for i in range(k):
         cur_info = info(prices[i])
-    
-
+        #If the difference is greater than zero it will be sold 
         if cur_info > 0 and owned[i] > 0:
             res.append((name[i], 'SELL', str(owned[i])))
+        #If the difference is less  than zero it will be appended to a heap and will be bought by prioritizing 
         elif cur_info < 0:
             heappush(drop, (cur_info, i, name[i]))
     
