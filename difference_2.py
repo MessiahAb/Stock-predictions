@@ -3,7 +3,9 @@ from __future__ import division
 from math import sqrt
 from operator import add
 from heapq import heappush, heappop
+
 def printTransactions(m, k, d, name, owned, prices):
+    #In thist function the percentage of differnce between last three prices is computed 
     def info(price):
         return (price[-1] - price[-2]) / price[-2], (price[-3] - price[-2]) / price[-3]
     infos = map(info, prices)
