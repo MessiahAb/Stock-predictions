@@ -4,6 +4,7 @@ from math import sqrt
 from operator import add
 from heapq import heappush, heappop
 def printTransactions(m, k, d, name, owned, prices):
+    #In thist function the weighted average for differences is computed  
     def info(price):
         weights=[0.2,0.4,0.6,0.8]
         avg=0
