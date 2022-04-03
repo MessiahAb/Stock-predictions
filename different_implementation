@@ -6,6 +6,7 @@ from heapq import heappush, heappop
 import numpy as np
 from operator import itemgetter
 def printTransactions(m, k, d, name, owned, prices):
+    #In this function the difference between short term and long term average is computed
     def info(price):
         # normalized_price = price / np.linalg.norm(price)
         normalized_price=price
@@ -22,9 +23,11 @@ def printTransactions(m, k, d, name, owned, prices):
     for i in range(k):
         cur_info = info(prices[i])
     
+        #If the difference is greater than zero it will be sold 
 
         if cur_info > 0 and owned[i] > 0:
             res.append((name[i], 'SELL', str(owned[i])))
+        #If the difference is less  than zero it will be appended to a list and will be bought by prioritizing 
         elif cur_info < 0:
             drop.append({'value':cur_info,'index':i ,'name':name[i]})
 
